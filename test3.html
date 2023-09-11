@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>인하대학교 간접비 계산</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Generator" content="EditPlus">
+    <meta name="Author" content="Inha University">
+    <meta name="Keywords" content="인하대학교 산학협력단">
+    <meta name="Description" content="인하대학교 산학협력단">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2,minimum-scale=1">
+    <noscript><meta http-equiv="X-Frame-Options" content="DENY" /></noscript>
+
+    <link rel="stylesheet" type="text/css" href="https://rnd.inha.ac.kr/responsive/css/sub.css" />
+    <link rel="stylesheet" type="text/css" href="https://rnd.inha.ac.kr/js/jquery/util/scroll/css/jquery.scroll.x-axis.css" />
+
+    <script type="text/javascript" src="https://rnd.inha.ac.kr/js/jquery/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="https://rnd.inha.ac.kr/js/jquery/util/scroll/jquery.scroll.x-axis.js"></script>
+    <script type="text/javascript" src="https://rnd.inha.ac.kr/js/design/jquery.cycle.all.js"></script>
+    <script type="text/javascript" src="https://rnd.inha.ac.kr/js/design/topMenu.js"></script>
+    <script type="text/javascript" src="https://rnd.inha.ac.kr/js/design/jquery.slide.js"></script>
+    <script type="text/javascript" src="https://rnd.inha.ac.kr/js/design/lnb.js"></script>
+
+    <!--[if !IE]><!--><script>if(/*@cc_on!@*/false){document.documentElement.className+=' ie10';}</script><!--<![endif]-->
+
+    <style type="text/css">
+        #indirectCostDiv {
+            display: block;
+            width: 100%;
+            border: 1px solid gray;
+            border-radius: 10px;
+            background-color: #f0f0f0;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .cost_box {
+            display: inline-block;
+            border: 1px solid gray;
+            background-color: white;
+            padding: 0px 20px;
+            margin: 10px;
+        }
+
+.cost_title{
+	display: block;
+	text-align: left;
+	font-size: 15px;
+	font-weight: bold;
+	margin: 10px 0px;
+	padding: 0px;
+}
+.cost_tbl{
+	/* width: 100%; */
+	display: inline-table;
+	padding: 0;
+	border-spacing: 0px;
+	border-collapse: collapse;
+	font-size: 12px;
+	text-align: center;
+	width: 45%;
+	min-width: 300px;
+	margin-bottom: 10px;
+	float: left;
+}
+.cost_msg{
+	display: block;
+	width:45%;
+	min-width: 280px;
+	text-align: left;
+	font-size: 12px;
+	margin: 0px;
+	margin-bottom: 10px;
+	line-height: 25px;
+	float: right;
+}
+.cost_bottom{
+	display: block;
+	text-align: left;
+	font-size: 12px;
+	font-weight: normal;
+	margin: 10px 0px;
+	line-height: 25px;
+	clear:both;
+	float: none;
+}
+
+@media only screen and (max-width:700px) {
+	.cost_box{text-align: center; padding: 0px 5px;}
+	.cost_tbl{float: none; min-width: 280px; width: 100%;}
+	.cost_msg{float: none; display: inline-block; width: 100%;}
+}
+
+.cost_tbl tr th{
+	background-color: #eef6fc;
+	padding: 3px;
+	border: 1px solid #bdbdbd;
+	font-weight: normal;
+}
+.cost_tbl tr td {
+	padding: 3px;
+	border: 1px solid #bdbdbd;
+	background-color: white;
+}
+.cost_tbl tr th:FIRST-CHILD, .cost_tbl tr td:FIRST-CHILD {
+	border-left: 1px solid gray !important;
+}
+.cost_tbl tr th:LAST-CHILD, .cost_tbl tr td:LAST-CHILD {
+	border-right: 1px solid gray !important;
+}
+.cost_tbl tr:FIRST-CHILD th, .cost_tbl tr:FIRST-CHILD td {
+	border-top: 1px solid gray !important;
+}
+.cost_tbl tr:LAST-CHILD th, .cost_tbl tr:LAST-CHILD td {
+	border-bottom: 1px solid gray !important;
+}
+.cost_tbl input.in{width: 140px; padding: 2px; margin: 0px; line-height: 18px; text-align: right; font-size: 12px; border: 1px solid gray; }
+.cost_tbl span.out{width: 140px; padding: 2px; margin: 0px; line-height: 18px;  text-align: right; font-size: 12px; border: none; display: inline-block;}
+.cost_tbl tr td.cost{white-space: nowrap; text-align: right;}
+
+    </style>
+<script type="text/javascript" src="https://rnd.inha.ac.kr/js/manual/cost.js"></script>
+<script type="text/javascript" src="https://rnd.inha.ac.kr/js/manual/cost01.js"></script>
+<script type="text/javascript" src="https://rnd.inha.ac.kr/js/manual/cost02.js"></script>
+<script type="text/javascript" src="https://rnd.inha.ac.kr/js/manual/cost03.js"></script>
+<script type="text/javascript" src="https://rnd.inha.ac.kr/js/manual/cost04.js"></script>
+<script type="text/javascript">
+
+	function selectIndirectCost() {
+		$('#indirectCostDiv').show();
+	}
+</script>
+
+</head>
+<body>
+
+    <header>
+<div class="cost_box" id="indirectCostDiv1">
+				<div class="cost_title">
+					■ 사기업 간접비 계산
+				</div>
+				<table class="cost_tbl">
+				<tr>
+					<th colspan="2">연구비 총액<span style="color: red;">①</span></th>
+					<td class="cost"><input id="cost0101" class="in" type="text" maxlength="21"/>원</td>
+				</tr>
+				<tr style="border-bottom: 3px double gray;">
+					<th colspan="2">간접비 비율<span style="color: red;">②</span></th>
+					<td class="cost"><input id="cost0102" class="in" type="text" maxlength="5" style="width: 40px;" value="15"/>%</td>
+				</tr>
+				<tr>
+					<th colspan="2">구분</th>
+					<th class="cost">금액</th>
+				</tr>
+				<tr>
+					<th rowspan="4">공<br/>급<br/>가<br/>액</th>
+					<th>직접비<span style="color: red;">③</span></th>
+					<td class="cost"><span id="cost0103" class="out"></span>원</td>
+				</tr>
+				<tr>
+					<th style="border-left-width: 1px !important;">위탁연구개발비</th>
+					<td class="cost"><input id="cost0104" class="in" type="text" maxlength="21" value=""/>원</td>
+				</tr>
+				<tr>
+					<th style="border-left-width: 1px !important;">간접비</th>
+					<td class="cost"><span id="cost0105" class="out"></span>원</td>
+				</tr>
+				<tr>
+					<th style="border-left-width: 1px !important;">공급가 합계</th>
+					<td class="cost"><span id="cost0106" class="out"></span>원</td>
+				</tr>
+				<tr>
+					<th colspan="2">부가세<span style="color: red;">④</span></th>
+					<td class="cost"><span id="cost0107" class="out"></span>원</td>
+				</tr>
+				<tr>
+					<th colspan="2">연구비 총액</th>
+					<td class="cost"><span id="cost0108" class="out"></span>원</td>
+				</tr>
+				</table>
+				<div class="cost_msg">
+					<span style="color: red;">
+					* <strong>연구비 총액</strong>란에 금액을 입력해 주십시오.<br/>
+					* <strong>위탁연구개발비</strong>는 협약서 또는 공고문을 통해 위탁이 가능한 과제인지 반드시 확인 후 입력하시기 바랍니다.<br/>
+					</span> 
+					<br/>
+					<span style="display: inline-block; padding-left: 20px;">
+						①연구비 총액: 부가세 포함 가력으로 입력<br/>
+						②간접비 비율: 공급가 기준<br/>
+						③직접비: 공급가액 - 간접비<br/>
+						④부가세: 공급가액 × 10%
+					</span>
+				</div>
+			</div>
+		
+			<div class="cost_box" id="indirectCostDiv2">
+				<div class="cost_title">
+					■ 정부용역 간접비 계산
+				</div>
+				<table class="cost_tbl">
+				<tr>
+					<th colspan="2">연구비 총액<span style="color: red;">①</span></th>
+					<td class="cost"><input id="cost0201" class="in" type="text" maxlength="21"/>원</td>
+				</tr>
+				<tr style="border-bottom: 3px double gray;">
+					<th colspan="2">간접비 비율<span style="color: red;">②</span></th>
+					<td class="cost"><input id="cost0202" class="in" type="text" maxlength="5" style="width: 40px;" value="6"/>%</td>
+				</tr>
+				<tr>
+					<th colspan="2">구분</th>
+					<th class="cost">금액</th>
+				</tr>
+				<tr>
+					<th rowspan="4">공<br/>급<br/>가<br/>액</th>
+					<th>직접비<span style="color: red;">③</span></th>
+					<td class="cost"><span id="cost0203" class="out"></span>원</td>
+				</tr>
+				<tr>
+					<th style="border-left-width: 1px !important;">위탁연구개발비</th>
+					<td class="cost"><input id="cost0204" class="in" type="text" maxlength="21" value=""/>원</td>
+				</tr>
+				<tr>
+					<th style="border-left-width: 1px !important;">간접비<span style="color: red;">④</span></th>
+					<td class="cost"><span id="cost0205" class="out"></span>원</td>
+				</tr>
+				<tr>
+					<th style="border-left-width: 1px !important;">공급가 합계⑥</th>
+					<td class="cost"><span id="cost0206" class="out"></span>원</td>
+				</tr>
+				<tr>
+					<th colspan="2">부가세<span style="color: red;">⑤</span></th>
+					<td class="cost"><span id="cost0207" class="out"></span>원</td>
+				</tr>
+				<tr>
+					<th colspan="2">연구비 총액⑦</th>
+					<td class="cost"><span id="cost0208" class="out"></span>원</td>
+				</tr>
+				</table>
+				<div class="cost_msg">
+					<span style="color: red;">
+					* <strong>연구비 총액</strong>란에 금액을 입력해 주십시오.<br/>
+					* <strong>위탁연구개발비</strong>는 협약서 또는 공고문을 통해 위탁이 가능한 과제인지 반드시 확인 후 입력하시기 바랍니다.<br/>
+					</span> 
+					<br/>
+					<span style="display: inline-block; padding-left: 20px;">
+						①연구비 총액: 부가세 포함 가력으로 입력<br/>
+						②간접비 비율: 직접비 기준<br/>
+						③직접비: 공급가액 - 간접비<br/>
+						④간접비: 공급가⑥ 기준 5.66% / 총액⑦ 기준 5.15%<br/>
+						⑤부가세: 공급가액 × 10%
+					</span>
+				</div>
+			</div>
+		
+			<div class="cost_box" id="indirectCostDiv3">
+				<div class="cost_title">
+					■ 국가 R&D과제 간접비 계산<span style="color: red;">(부가세 없음)</span>
+				</div>
+				<table class="cost_tbl">
+				<tr>
+					<th colspan="2">연구비 총액</th>
+					<td class="cost"><input id="cost0301" class="in" type="text" maxlength="21"/>원</td>
+				</tr>
+				<tr style="border-bottom: 3px double gray;">
+					<th colspan="2">간접비 비율<span style="color: red;">①</span></th>
+					<td class="cost"><input id="cost0302" class="in" type="text" maxlength="5" style="width: 40px;" value="29.4"/>%</td>
+				</tr>
+				<tr>
+					<th colspan="2">구분</th>
+					<th class="cost">금액</th>
+				</tr>
+				<tr>
+					<th rowspan="4" style="border-bottom: 1px solid gray;">공<br/>급<br/>가<br/>액</th>
+					<th>직접비<span style="color: red;">②</span></th>
+					<td class="cost"><span id="cost0303" class="out"></span>원</td>
+				</tr>
+				<tr>
+					<th style="border-left-width: 1px !important;">위탁연구개발비</th>
+					<td class="cost"><input id="cost0304" class="in" type="text" maxlength="21" value=""/>원</td>
+				</tr>
+				<tr>
+					<th style="border-left-width: 1px !important;">간접비<span style="color: red;">③</span></th>
+					<td class="cost"><span id="cost0305" class="out"></span>원</td>
+				</tr>
+				<tr>
+					<th style="border-left-width: 1px !important;">공급가 합계④</th>
+					<td class="cost"><span id="cost0306" class="out"></span>원</td>
+				</tr>
+				</table>
+				<div class="cost_msg">
+					<span style="color: red;">
+					* <strong>연구비 총액</strong>란에 금액을 입력해 주십시오.<br/>
+					* <strong>위탁연구개발비</strong>는 협약서 또는 공고문을 통해 위탁이 가능한 과제인지 반드시 확인 후 입력하시기 바랍니다.<br/>
+					</span> 
+					<br/>
+					<span style="display: inline-block; padding-left: 20px;">
+						①간접비 비율: 직접비 기준<br/>
+						②직접비: 공급가액 - 간접비<br/>
+						③간접비: 공급가④ 기준 22.72%
+					</span>
+				</div>
+				<div class="cost_bottom">
+					* 우리 기관이 <span style="color: red;">주관</span> 또는 <span style="color: red;">공동연구개발기관</span>으로 참여할 경우, 연구결과물을 인하대가 소유하며 부가세가 발생하지 않음.<br/>
+					단, 협약서에 연구결과물이 국가에 귀속되거나 또는 공동으로 소유한다는 내용이 명시되어 있을 경우 연구지원팀에 문의할 것.
+				</div>
+			</div>
+		
+			<div class="cost_box" id="indirectCostDiv4">
+				<div class="cost_title">
+					■ R&D위탁과제 간접비 계산(부가세 있음)
+				</div>
+				<table class="cost_tbl">
+				<tr>
+					<th colspan="2">연구비 총액<span style="color: red;">①</span></th>
+					<td class="cost"><input id="cost0401" class="in" type="text" maxlength="21"/>원</td>
+				</tr>
+				<tr style="border-bottom: 3px double gray;">
+					<th colspan="2">간접비 비율<span style="color: red;">②</span></th>
+					<td class="cost"><input id="cost0402" class="in" type="text" maxlength="5" style="width: 40px;" value="20"/>%</td>
+				</tr>
+				<tr>
+					<th colspan="2">구분</th>
+					<th class="cost">금액</th>
+				</tr>
+				<tr>
+					<th rowspan="4">공<br/>급<br/>가<br/>액</th>
+					<th>직접비<span style="color: red;">③</span></th>
+					<td class="cost"><span id="cost0403" class="out"></span>원</td>
+				</tr>
+				<tr>
+					<th style="border-left-width: 1px !important;">위탁연구개발비</th>
+					<td class="cost"><input id="cost0404" class="in" type="text" maxlength="21" value=""/>원</td>
+				</tr>
+				<tr>
+					<th style="border-left-width: 1px !important;">간접비<span style="color: red;">④</span></th>
+					<td class="cost"><span id="cost0405" class="out"></span>원</td>
+				</tr>
+				<tr>
+					<th style="border-left-width: 1px !important;">공급가 합계⑥</th>
+					<td class="cost"><span id="cost0406" class="out"></span>원</td>
+				</tr>
+				<tr>
+					<th colspan="2">부가세<span style="color: red;">⑤</span></th>
+					<td class="cost"><span id="cost0407" class="out"></span>원</td>
+				</tr>
+				<tr>
+					<th colspan="2">연구비 총액⑦</th>
+					<td class="cost"><span id="cost0408" class="out"></span>원</td>
+				</tr>
+				</table>
+				<div class="cost_msg">
+					<span style="color: red;">
+					* <strong>연구비 총액</strong>란에 금액을 입력해 주십시오.<br/>
+					* <strong>위탁연구개발비</strong>는 협약서 또는 공고문을 통해 위탁이 가능한 과제인지 반드시 확인 후 입력하시기 바랍니다.<br/>
+					</span>
+					<br/>
+					<span style="display: inline-block; padding-left: 20px;">
+						①연구비 총액: 부가세 포함 가력으로 입력<br/>
+						②간접비 비율: 직접비 기준<br/>
+						③직접비: 공급가액 - 간접비<br/>
+						④간접비: 공급가⑥ 기준 16.66% / 총액⑦ 기준 15.15%<br/>
+						⑤부가세: 공급가액 × 10%
+					</span>
+				</div>
+				<div class="cost_bottom">
+					* 우리 기관이 <span style="color: red;">위탁연구개발기관</span>으로 참여할 경우, 연구결과물을 주관기관이 소유하며 부가세 발생.
+				</div>
+			</div>
+		</div>
+		
+    </header>
+
+</body>
+</html>
